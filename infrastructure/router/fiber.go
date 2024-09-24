@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/YamaguchiKoki/react-go-todo/adapter/logger"
+	"github.com/YamaguchiKoki/react-go-todo/adapter/presenter"
 	"github.com/YamaguchiKoki/react-go-todo/adapter/repository"
 	"github.com/YamaguchiKoki/react-go-todo/adapter/validator"
 	"github.com/YamaguchiKoki/react-go-todo/usecase"
@@ -45,8 +46,10 @@ func (f fiberEngine) setAppHandlers(app *fiber.App) {
 }
 
 //TODO:ここから
-func (f fiberEngine) buildCreateUserAction(c *fiber.Ctx) error {
+func (f fiberEngine) buildCreateUserAction(c *fiber.Ctx) fiber.H {
 	uc := usecase.NewCreateUserInteractor(
-		repository.
+		repository.NewUserNoSQL(f.db),
+		presenter.NewCreateUserPresenter(),
+		f.ctxTimeout,
 	)
 }

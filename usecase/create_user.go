@@ -55,7 +55,7 @@ func (u CreateUserInteractor) Execute(ctx context.Context, input CreateUserInput
 	ctx, cancel := context.WithTimeout(ctx, u.ctxTimeout)
 	defer cancel()
 
-	exsistingUser, err := u.repo.GetUserByEmail(ctx, input.Email)
+	exsistingUser, err := u.repo.FindByEmail(ctx, input.Email)
 	if exsistingUser != nil {
 		return u.presenter.Output(domain.User{}), err
 	}
@@ -66,7 +66,7 @@ func (u CreateUserInteractor) Execute(ctx context.Context, input CreateUserInput
 		input.Email,
 		input.Password,
 	)
-	err = u.repo.CreateUser(ctx, user)
+	err = u.repo.Create(ctx, user)
 	if err != nil {
 		return u.presenter.Output(domain.User{}), err
 	}

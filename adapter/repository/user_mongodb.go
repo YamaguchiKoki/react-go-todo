@@ -14,6 +14,8 @@ type userBSON struct {
 	Password string             `bson:"password"`
 }
 
+//domain層で定義したrepositoryのインターフェースの実装
+//TODO:シグネチャ合わせるとこから
 type UserNoSQL struct {
 	collectionName string
 	db NoSQL
@@ -28,6 +30,32 @@ func NewUserNoSQL(db NoSQL) UserNoSQL {
 
 func (u UserNoSQL) Create(ctx context.Context, user domain.User) (domain.User, error) {
 	userBSON := &userBSON{
-		ID: ,
+		ID: user.ID,
+		
+	}
+}
+
+func (u UserNoSQL) FindByID(ctx context.Context, id primitive.ObjectID) (domain.User, error) {
+	
+}
+
+func (u UserNoSQL) FindByEmail(ctx context.Context, email string) (domain.User, error) {
+	userBSON := &userBSON{
+		ID: user.ID,
+
+	}
+}
+
+func (u UserNoSQL) Update(ctx context.Context, user domain.User) error {
+	userBSON := &userBSON{
+		ID: user.ID,
+
+	}
+}
+
+func (u UserNoSQL) Delete(ctx context.Context, user domain.User) error {
+	userBSON := &userBSON{
+		ID: user.ID,
+
 	}
 }
